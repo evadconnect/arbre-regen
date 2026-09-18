@@ -283,6 +283,28 @@ header.masthead {
 [data-theme="dark"] .sun { display: none; }
 [data-theme="dark"] .moon { display: block; }
 
+/* Sève : flux doré en pointillé qui monte des racines vers les branches. */
+.sap {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 3 15;
+  opacity: 0.8;
+  pointer-events: none;
+  animation: sap-rise 3.2s linear infinite;
+}
+.sap-b { stroke-width: 3.5; opacity: 0.68; }
+.sap-flow { cursor: pointer; }
+.sap-flow:focus-visible { outline: none; }
+.sap-flow:hover .sap,
+.sap-flow:focus-visible .sap {
+  opacity: 1;
+  stroke-width: 5;
+  filter: drop-shadow(0 0 5px rgba(242,183,5,0.7));
+}
+@keyframes sap-rise { to { stroke-dashoffset: -180; } }
+
 /* Feuilles qui tombent : chaque feuille dérive vers le bas, tourne et s'efface,
    puis reparaît en haut. Le groupe entier est survolable/focusable. */
 .loop-leaves { cursor: pointer; }
@@ -307,7 +329,7 @@ header.masthead {
 /* Respect de la frugalité et de l'accessibilité : aucune animation si l'utilisateur
    a demandé à réduire le mouvement. */
 @media (prefers-reduced-motion: reduce) {
-  .branch, .leaf-fall { animation: none !important; transition: none !important; }
+  .branch, .leaf-fall, .sap { animation: none !important; transition: none !important; }
   .leaf-fall { opacity: 0.95; }
 }
 
@@ -455,6 +477,20 @@ header.masthead {
           <path d="M450,440 L450,330" stroke-width="12"/>
           <path d="M560,470 Q583,428 605,385" stroke-width="11"/>
           <path d="M600,540 Q655,518 710,495" stroke-width="12"/>
+        </g>
+
+        <!-- ===== SÈVE : flux doré qui monte des racines vers les branches =====
+             Groupe survolable/focusable : au survol, la connexion s'affiche dans le panneau. -->
+        <g class="sap-flow" tabindex="0" role="button"
+           aria-label="La sève : elle monte des racines vers les branches, les piliers nourrissent le parcours">
+          <path class="sap" d="M450,850 L450,548"/>
+          <path class="sap sap-b" d="M450,560 Q320,540 210,495"/>
+          <path class="sap sap-b" d="M450,552 Q360,470 315,385"/>
+          <path class="sap sap-b" d="M450,548 Q450,440 450,330"/>
+          <path class="sap sap-b" d="M450,552 Q560,470 605,385"/>
+          <path class="sap sap-b" d="M450,560 Q600,540 710,495"/>
+          <!-- Zone de survol invisible sur le tronc. -->
+          <rect x="412" y="548" width="76" height="305" fill="transparent" pointer-events="all"/>
         </g>
 
         <!-- ===== FEUILLES-ÉTAPES : numéro + verbe + fonction, interactives ===== -->
@@ -641,6 +677,16 @@ function renderRoot(key) {
     <p class="hint">Les cinq piliers forment le sol commun sur lequel pousse chaque lieu.</p>`;
 }
 
+// Vue de la sève (survol du tronc) : la connexion racines -> branches.
+function renderSap() {
+  panelBody.innerHTML = `
+    <div class="pillar-img"><span>🌿</span></div>
+    <p class="eyebrow">La sève</p>
+    <h2>Des racines aux branches</h2>
+    <p>La sève monte des racines vers les branches : les cinq piliers irriguent chaque étape du parcours. Ce que porte le sol commun nourrit toute la démarche, du rêve à la preuve.</p>
+    <p class="hint">Racines, tronc et branches sont reliés par un même flux vivant : rien n'avance sans les piliers.</p>`;
+}
+
 // Vue de la boucle du vivant (survol des feuilles qui tombent).
 function renderLoop() {
   panelBody.innerHTML = `
@@ -696,6 +742,18 @@ document.querySelectorAll(".root").forEach(el => {
     if (e.key === "Enter" || e.key === " ") { e.preventDefault(); enter(); }
   });
 });
+
+// --- Sève (le tronc) --- survol / focus uniquement.
+const sapFlow = document.querySelector(".sap-flow");
+if (sapFlow) {
+  sapFlow.addEventListener("pointerenter", renderSap);
+  sapFlow.addEventListener("focus", renderSap);
+  sapFlow.addEventListener("pointerleave", restore);
+  sapFlow.addEventListener("blur", restore);
+  sapFlow.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); renderSap(); }
+  });
+}
 
 // --- Feuilles qui tombent (la boucle du vivant) --- survol / focus uniquement.
 const loopLeaves = document.querySelector(".loop-leaves");
