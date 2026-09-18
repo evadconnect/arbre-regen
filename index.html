@@ -516,7 +516,7 @@ header.masthead {
         <!-- ===== SÈVE : flux doré qui monte des racines vers les branches =====
              Groupe survolable/focusable : au survol, la connexion s'affiche dans le panneau. -->
         <g class="sap-flow" tabindex="0" role="button"
-           aria-label="La sève : elle monte des racines vers les branches, les piliers nourrissent le parcours">
+           aria-label="Le tronc : la mission d'EVAD, ce qu'EVAD fait, de l'idée à la preuve">
           <path class="sap" d="M450,850 L450,548"/>
           <path class="sap sap-b" d="M450,560 Q320,540 210,495"/>
           <path class="sap sap-b" d="M450,552 Q360,470 315,385"/>
@@ -706,7 +706,7 @@ function renderDefault() {
       <li><span class="dot" style="background:var(--trunk)"></span> Tronc : la mission, de l'idée à la preuve</li>
       <li><span class="dot" style="background:var(--green2)"></span> Branches : les cinq étapes REGEN</li>
     </ul>
-    <p class="hint">Survole, clique ou navigue au clavier (Tab, puis Entrée) sur une branche ou une racine.</p>`;
+    <p class="hint">Survole, clique ou navigue au clavier (Tab, puis Entrée) sur le tronc, une branche ou une racine.</p>`;
 }
 
 // Vue d'une branche.
@@ -739,14 +739,15 @@ function renderRoot(key) {
     <p class="hint">Les cinq piliers forment le sol commun sur lequel pousse chaque lieu.</p>`;
 }
 
-// Vue de la sève (survol du tronc) : la connexion racines -> branches.
-function renderSap() {
+// Vue du tronc (survol) : la mission, ce que fait EVAD. La sève relie racines et branches.
+function renderTrunk() {
   panelBody.innerHTML = `
-    <div class="pillar-img"><span>🌿</span></div>
-    <p class="eyebrow">La sève</p>
-    <h2>Des racines aux branches</h2>
-    <p>La sève monte des racines vers les branches : les cinq piliers irriguent chaque étape du parcours. Ce que porte le sol commun nourrit toute la démarche, de l'idée à la preuve.</p>
-    <p class="hint">Racines, tronc et branches sont reliés par un même flux vivant : rien n'avance sans les piliers.</p>`;
+    <div class="pillar-img"><span>🌱</span></div>
+    <p class="eyebrow">Le tronc, la mission</p>
+    <h2>Ce que fait EVAD</h2>
+    <p>EVAD accompagne chaque lieu de l'idée à la preuve : un parcours régénératif où l'on rêve une vision, explore le commun, génère une modélisation, passe aux actions et nourrit les preuves.</p>
+    <p>Comme une sève, les cinq piliers (les racines) irriguent chaque étape (les branches). Deva éclaire et propose à chaque pas, l'humain décide toujours.</p>
+    <p class="hint">Un seul organisme vivant, de l'idée à la preuve.</p>`;
 }
 
 // Vue de la boucle du vivant (survol des feuilles qui tombent).
@@ -808,12 +809,12 @@ document.querySelectorAll(".root").forEach(el => {
 // --- Sève (le tronc) --- survol / focus uniquement.
 const sapFlow = document.querySelector(".sap-flow");
 if (sapFlow) {
-  sapFlow.addEventListener("pointerenter", renderSap);
-  sapFlow.addEventListener("focus", renderSap);
+  sapFlow.addEventListener("pointerenter", renderTrunk);
+  sapFlow.addEventListener("focus", renderTrunk);
   sapFlow.addEventListener("pointerleave", restore);
   sapFlow.addEventListener("blur", restore);
   sapFlow.addEventListener("keydown", e => {
-    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); renderSap(); }
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); renderTrunk(); }
   });
 }
 
