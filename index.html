@@ -305,6 +305,39 @@ header.masthead {
 }
 @keyframes sap-rise { to { stroke-dashoffset: -180; } }
 
+/* Oiseau et papillon : décoratifs, ne captent pas la souris. */
+.bird, .butterfly { pointer-events: none; }
+.bird-move {
+  transform-box: fill-box; transform-origin: center;
+  animation: bird-fly 15s ease-in-out infinite;
+}
+@keyframes bird-fly {
+  0%   { transform: translate(0,0); }
+  25%  { transform: translate(-34px,16px); }
+  50%  { transform: translate(-66px,-8px); }
+  75%  { transform: translate(-30px,12px); }
+  100% { transform: translate(0,0); }
+}
+.bird-wing {
+  transform-box: fill-box; transform-origin: bottom;
+  animation: bird-flap 0.55s ease-in-out infinite;
+}
+@keyframes bird-flap { 0%,100% { transform: scaleY(1); } 50% { transform: scaleY(0.4); } }
+
+.bfly-move {
+  transform-box: fill-box; transform-origin: center;
+  animation: bfly-drift 11s ease-in-out infinite;
+}
+@keyframes bfly-drift {
+  0%   { transform: translate(0,0) rotate(0deg); }
+  30%  { transform: translate(30px,-24px) rotate(7deg); }
+  60%  { transform: translate(54px,8px) rotate(-5deg); }
+  100% { transform: translate(0,0) rotate(0deg); }
+}
+.wing-l { transform-box: fill-box; transform-origin: right center; animation: bfly-flap 0.4s ease-in-out infinite; }
+.wing-r { transform-box: fill-box; transform-origin: left center;  animation: bfly-flap 0.4s ease-in-out infinite; }
+@keyframes bfly-flap { 0%,100% { transform: scaleX(1); } 50% { transform: scaleX(0.32); } }
+
 /* Feuilles qui tombent : chaque feuille dérive vers le bas, tourne et s'efface,
    puis reparaît en haut. Le groupe entier est survolable/focusable. */
 .loop-leaves { cursor: pointer; }
@@ -329,7 +362,8 @@ header.masthead {
 /* Respect de la frugalité et de l'accessibilité : aucune animation si l'utilisateur
    a demandé à réduire le mouvement. */
 @media (prefers-reduced-motion: reduce) {
-  .branch, .leaf-fall, .sap { animation: none !important; transition: none !important; }
+  .branch, .leaf-fall, .sap,
+  .bird-move, .bird-wing, .bfly-move, .wing-l, .wing-r { animation: none !important; transition: none !important; }
   .leaf-fall { opacity: 0.95; }
 }
 
@@ -544,6 +578,34 @@ header.masthead {
           <g transform="translate(724,748)"><use href="#leafGlyph" class="leaf-fall" style="--d:-2.2s;--t:5.8s" color="var(--green2)"/></g>
           <g transform="translate(696,804)"><use href="#leafGlyph" class="leaf-fall" style="--d:-4.3s;--t:6.2s" color="var(--gold)"/></g>
           <g transform="translate(716,844)"><use href="#leafGlyph" class="leaf-fall" style="--d:-5.1s;--t:5.6s" color="var(--leaf)"/></g>
+        </g>
+
+        <!-- ===== OISEAU : décoratif, vole dans le ciel ===== -->
+        <g class="bird" aria-hidden="true" transform="translate(775,180)">
+          <g class="bird-move">
+            <path d="M-13,-1 L-26,-6 L-23,2 Z" fill="var(--forest)"/>
+            <ellipse cx="0" cy="0" rx="13" ry="7" fill="var(--forest)"/>
+            <circle cx="11" cy="-4" r="5" fill="var(--forest)"/>
+            <path d="M15,-4 L24,-2.5 L15,-1 Z" fill="var(--gold)"/>
+            <path class="bird-wing" d="M-1,-3 Q-4,-22 12,-9 Q4,-3 -1,-3 Z" fill="var(--green)"/>
+          </g>
+        </g>
+
+        <!-- ===== PAPILLON : décoratif, volette près du feuillage ===== -->
+        <g class="butterfly" aria-hidden="true" transform="translate(255,600)">
+          <g class="bfly-move">
+            <ellipse cx="0" cy="0" rx="1.7" ry="9" fill="var(--forest)"/>
+            <path d="M-0.5,-8 Q-4,-15 -6,-16" stroke="var(--forest)" stroke-width="1" fill="none"/>
+            <path d="M0.5,-8 Q4,-15 6,-16" stroke="var(--forest)" stroke-width="1" fill="none"/>
+            <g class="wing-l">
+              <ellipse cx="-9" cy="-5" rx="9" ry="7.5" fill="var(--gold)" opacity="0.92"/>
+              <ellipse cx="-8" cy="7" rx="7" ry="5.5" fill="var(--green2)" opacity="0.92"/>
+            </g>
+            <g class="wing-r">
+              <ellipse cx="9" cy="-5" rx="9" ry="7.5" fill="var(--gold)" opacity="0.92"/>
+              <ellipse cx="8" cy="7" rx="7" ry="5.5" fill="var(--green2)" opacity="0.92"/>
+            </g>
+          </g>
         </g>
 
       </svg>
