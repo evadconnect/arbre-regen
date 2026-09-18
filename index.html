@@ -233,6 +233,18 @@ header.masthead {
   font-size: 0.66rem; color: var(--green2); margin: 0 0 0.35rem;
 }
 .panel .field p { margin: 0; font-size: 0.92rem; color: var(--panel-fg); }
+.panel .field .tool-list {
+  margin: 0 0 0.7rem; padding: 0; list-style: none;
+}
+.panel .field .tool-list li {
+  position: relative; padding: 0.18rem 0 0.18rem 1.1rem;
+  font-size: 0.92rem; color: var(--panel-fg);
+}
+.panel .field .tool-list li::before {
+  content: ""; position: absolute; left: 0; top: 0.62rem;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--green2);
+}
+.panel .field .deva { margin: 0; font-size: 0.9rem; }
 .panel .field strong { color: var(--panel-fg); font-weight: 700; }
 .panel .field em { color: var(--green2); font-style: normal; font-weight: 700; }
 
@@ -497,23 +509,51 @@ header.masthead {
 const BRANCHES = {
   "1": { n: 1, verb: "Rêver", fn: "la Vision", glyph: "💭",
     def: "Imaginer ensemble un futur désirable et en faire un cap partagé.",
-    outils: "La vidéo de Vision d'EVAD comme déclencheur, un montage libre avec Kdenlive, un hébergement sobre sur PeerTube, un canevas ouvert type Excalidraw pour les collectifs qui dessinent. <strong>Deva</strong> accompagne la conversation pour faire accoucher la vision du groupe, elle ne la rédige jamais.",
+    outils: {
+      items: [
+        "La vidéo de Vision d'EVAD comme déclencheur",
+        "Un montage libre avec Kdenlive",
+        "Un hébergement sobre sur PeerTube",
+        "Un canevas ouvert type Excalidraw pour les collectifs qui dessinent"
+      ],
+      deva: "accompagne la conversation pour faire accoucher la vision du groupe, elle ne la rédige jamais." },
     coop: "Les animateurs d'ateliers d'imaginaire et de prise de conscience, La Fresque du Climat et 2tonnes, et le wiki Movilab qui documente les tiers-lieux et leurs récits. Ils cadrent l'intention collective, exactement l'étape Rêver." },
   "2": { n: 2, verb: "Explorer", fn: "le Commun", glyph: "🧭",
     def: "Choisir des solutions régénératives déjà éprouvées, avec leurs indicateurs et leurs conditions de réussite, sans réinventer la roue.",
-    outils: "Le Commun d'EVAD, alimenté par des bases externes plutôt que rempli à la main. <strong>Deva</strong> cherche et cite sa source, elle n'invente jamais.",
+    outils: {
+      items: [
+        "Le Commun d'EVAD, alimenté par des bases externes plutôt que rempli à la main"
+      ],
+      deva: "cherche et cite sa source, elle n'invente jamais." },
     coop: "<em>Solutions :</em> le Low-tech Lab et sa base de données ouverte, la Fondation Solar Impulse et ses solutions labellisées par des experts indépendants, et Low-tech Magazine comme répertoire d'articles de fond.<br><em>Indicateurs :</em> la plateforme Commune Mesure, dédiée aux tiers-lieux, et l'Avise, qui distingue référentiels généralistes et sectoriels et renvoie aux Objectifs de développement durable." },
   "3": { n: 3, verb: "Générer", fn: "la modélisation", glyph: "🏗",
     def: "Créer votre propre projet en trois dimensions et le poser sur la carte, pour tester des scénarios et le rendre visible.",
-    outils: "Le constructeur d'esquisse d'EVAD comme source de vérité, Luanti pour l'immersion et l'implémentation, et uMap adossé à OpenStreetMap pour la carte, libres et frugaux. <strong>Deva</strong> abaisse la barrière et place les blocs, elle ne choisit pas la solution.",
+    outils: {
+      items: [
+        "Le constructeur d'esquisse d'EVAD comme source de vérité",
+        "Luanti pour l'immersion et l'implémentation",
+        "uMap adossé à OpenStreetMap pour la carte, libres et frugaux"
+      ],
+      deva: "abaisse la barrière et place les blocs, elle ne choisit pas la solution." },
     coop: "La communauté OpenStreetMap France pour la donnée cartographique ouverte, et la communauté Luanti pour le moteur voxel libre. Des communs techniques, pas des fournisseurs, au plus près de la décentralisation." },
   "4": { n: 4, verb: "Entreprendre", fn: "la Gestion", glyph: "🛠️",
     def: "Passer du virtuel au réel, une action à la fois, guidé par un plan d'action découpé en petits pas atteignables.",
-    outils: "La Gestion d'EVAD et son jumeau qui verdit, Nextcloud pour la gestion documentaire, les outils de Framasoft pour l'agenda et la coordination, tous auto-hébergeables. <strong>Deva</strong> découpe le prochain pas et séquence le plan d'action, elle n'exécute jamais.",
+    outils: {
+      items: [
+        "La Gestion d'EVAD et son jumeau qui verdit",
+        "Nextcloud pour la gestion documentaire",
+        "Les outils de Framasoft pour l'agenda et la coordination, tous auto-hébergeables"
+      ],
+      deva: "découpe le prochain pas et séquence le plan d'action, elle n'exécute jamais." },
     coop: "France Tiers-Lieux et son réseau régional, qui accompagnent le passage à l'acte des lieux, et les têtes de réseau de l'économie sociale et solidaire locales. Des relais de terrain, parfois rivaux d'accompagnement, donc de vrais coopétiteurs." },
   "5": { n: 5, verb: "Nourrir", fn: "les preuves", glyph: "🎖",
     def: "Mesurer le changement dans le temps et prouver l'impact, pour transformer une intention en preuve vérifiée et auditable.",
-    outils: "Le moteur de mesure d'EVAD, séparé de Deva, qui produit les indicateurs à partir des actes validés, et l'export vers les référentiels attendus. <strong>Deva</strong> guide la collecte de preuves, elle ne calcule jamais le chiffre.",
+    outils: {
+      items: [
+        "Le moteur de mesure d'EVAD, séparé de Deva, qui produit les indicateurs à partir des actes validés",
+        "L'export vers les référentiels attendus"
+      ],
+      deva: "guide la collecte de preuves, elle ne calcule jamais le chiffre." },
     coop: "L'Observatoire des Tiers-Lieux de France Tiers-Lieux et sa cartographie d'outils d'évaluation, le référentiel Valor'ESS de l'UDES (quarante-trois indicateurs en treize dimensions), le référentiel d'impact des tiers-lieux ruraux de Familles Rurales et Eexiste, et le mouvement Impact France.<br><em>Côté financeurs :</em> les cadres ESRS, CSRD et les ODD comme langages de sortie." }
 };
 
@@ -558,7 +598,11 @@ function renderBranch(id) {
     <h2>${esc(b.verb)}</h2>
     <p class="sub">${esc(b.fn)}</p>
     <div class="field"><h3>Définition</h3><p>${b.def}</p></div>
-    <div class="field"><h3>Outils</h3><p>${b.outils}</p></div>
+    <div class="field">
+      <h3>Outils</h3>
+      <ul class="tool-list">${b.outils.items.map(i => `<li>${i}</li>`).join("")}</ul>
+      <p class="deva"><span class="glyph">✦</span> <strong>Deva</strong> ${b.outils.deva}</p>
+    </div>
     <div class="field"><h3>Coopétiteurs</h3><p>${b.coop}</p></div>`;
 }
 
