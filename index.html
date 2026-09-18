@@ -287,10 +287,32 @@ header.masthead {
 .loop-path { animation: loop-flow 6s linear infinite; }
 @keyframes loop-flow { to { stroke-dashoffset: -60; } }
 
+/* Feuilles qui tombent : chaque feuille dérive vers le bas, tourne et s'efface,
+   puis reparaît en haut. Le groupe entier est survolable/focusable. */
+.loop-leaves { cursor: pointer; }
+.loop-leaves:focus-visible { outline: none; }
+.leaf-fall {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: leaf-fall var(--t, 6s) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+.loop-leaves:hover .leaf-fall,
+.loop-leaves:focus-visible .leaf-fall {
+  filter: drop-shadow(0 0 6px rgba(242,183,5,0.65));
+}
+@keyframes leaf-fall {
+  0%   { transform: translate(0, -22px) rotate(-12deg); opacity: 0; }
+  15%  { opacity: 0.95; }
+  85%  { opacity: 0.95; }
+  100% { transform: translate(16px, 60px) rotate(96deg); opacity: 0; }
+}
+
 /* Respect de la frugalité et de l'accessibilité : aucune animation si l'utilisateur
    a demandé à réduire le mouvement. */
 @media (prefers-reduced-motion: reduce) {
-  .loop-path, .branch { animation: none !important; transition: none !important; }
+  .loop-path, .branch, .leaf-fall { animation: none !important; transition: none !important; }
+  .leaf-fall { opacity: 0.95; }
 }
 
 /* =========================================================================
@@ -354,6 +376,11 @@ header.masthead {
                   markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M0,0 L10,5 L0,10 z" fill="var(--gold)"/>
           </marker>
+          <!-- Feuille réutilisable : sa couleur suit currentColor. -->
+          <g id="leafGlyph">
+            <path d="M0,-11 C7,-6 7,6 0,11 C-7,6 -7,-6 0,-11 Z" fill="currentColor"/>
+            <path d="M0,-8 L0,8" stroke="var(--forest)" stroke-width="1" fill="none" opacity="0.4"/>
+          </g>
         </defs>
 
         <!-- ===== SOLEIL doux (thème clair) / LUNE (thème sombre), sans étiquette ===== -->
@@ -441,18 +468,18 @@ header.masthead {
 
         <!-- ===== FEUILLES-ÉTAPES : numéro + verbe + fonction, interactives ===== -->
         <!-- 1 Rêver -->
-        <g class="branch" data-branch="1" tabindex="0" role="button" aria-label="Étape 1, Rêver, la Vision">
+        <g class="branch" data-branch="1" tabindex="0" role="button" aria-label="Étape 1, Rêver, la vision">
           <circle class="leaf-disc" cx="210" cy="495" r="62" fill="url(#leafGrad)" stroke="var(--forest)" stroke-width="2"/>
           <text x="210" y="478" text-anchor="middle" font-family="var(--font-serif)" font-size="20" font-weight="700" fill="var(--gold)">1</text>
           <text x="210" y="502" text-anchor="middle" font-family="var(--font-sans)" font-size="17" font-weight="700" fill="#fff">Rêver</text>
-          <text x="210" y="522" text-anchor="middle" font-family="var(--font-sans)" font-size="12" fill="var(--cream)">la Vision</text>
+          <text x="210" y="522" text-anchor="middle" font-family="var(--font-sans)" font-size="12" fill="var(--cream)">la vision</text>
         </g>
         <!-- 2 Explorer -->
-        <g class="branch" data-branch="2" tabindex="0" role="button" aria-label="Étape 2, Explorer, le Commun">
+        <g class="branch" data-branch="2" tabindex="0" role="button" aria-label="Étape 2, Explorer, le commun">
           <circle class="leaf-disc" cx="315" cy="385" r="62" fill="url(#leafGrad)" stroke="var(--forest)" stroke-width="2"/>
           <text x="315" y="368" text-anchor="middle" font-family="var(--font-serif)" font-size="20" font-weight="700" fill="var(--gold)">2</text>
           <text x="315" y="392" text-anchor="middle" font-family="var(--font-sans)" font-size="16" font-weight="700" fill="#fff">Explorer</text>
-          <text x="315" y="412" text-anchor="middle" font-family="var(--font-sans)" font-size="12" fill="var(--cream)">le Commun</text>
+          <text x="315" y="412" text-anchor="middle" font-family="var(--font-sans)" font-size="12" fill="var(--cream)">le commun</text>
         </g>
         <!-- 3 Générer -->
         <g class="branch" data-branch="3" tabindex="0" role="button" aria-label="Étape 3, Générer, la modélisation">
@@ -462,11 +489,11 @@ header.masthead {
           <text x="450" y="358" text-anchor="middle" font-family="var(--font-sans)" font-size="12" fill="var(--cream)">la modélisation</text>
         </g>
         <!-- 4 Entreprendre -->
-        <g class="branch" data-branch="4" tabindex="0" role="button" aria-label="Étape 4, Entreprendre, la Gestion">
+        <g class="branch" data-branch="4" tabindex="0" role="button" aria-label="Étape 4, Entreprendre, les actions">
           <circle class="leaf-disc" cx="605" cy="385" r="62" fill="url(#leafGrad)" stroke="var(--forest)" stroke-width="2"/>
           <text x="605" y="366" text-anchor="middle" font-family="var(--font-serif)" font-size="20" font-weight="700" fill="var(--gold)">4</text>
           <text x="605" y="390" text-anchor="middle" font-family="var(--font-sans)" font-size="14" font-weight="700" fill="#fff">Entreprendre</text>
-          <text x="605" y="410" text-anchor="middle" font-family="var(--font-sans)" font-size="12" fill="var(--cream)">la Gestion</text>
+          <text x="605" y="410" text-anchor="middle" font-family="var(--font-sans)" font-size="12" fill="var(--cream)">les actions</text>
         </g>
         <!-- 5 Nourrir -->
         <g class="branch" data-branch="5" tabindex="0" role="button" aria-label="Étape 5, Nourrir, les preuves">
@@ -480,12 +507,18 @@ header.masthead {
         <path class="loop-path" d="M775,320 C900,400 905,620 855,760 C820,858 720,880 620,872"
               fill="none" stroke="var(--gold)" stroke-width="3"
               stroke-dasharray="3 9" stroke-linecap="round" marker-end="url(#loopArrow)"/>
-        <text font-family="var(--font-sans)" font-size="13" font-weight="600" fill="var(--label)" text-anchor="end">
-          <tspan x="968" y="470">les résultats vérifiés</tspan>
-          <tspan x="968" y="490">retournent au Commun</tspan>
-          <tspan x="968" y="510">et nourrissent</tspan>
-          <tspan x="968" y="530">les racines</tspan>
-        </text>
+        <!-- ===== FEUILLES QUI TOMBENT : la boucle du vivant, survolables =====
+             Elles descendent le long de la boucle, du feuillage vers les racines.
+             Au survol, leur sens s'affiche dans le panneau latéral. -->
+        <g class="loop-leaves" tabindex="0" role="button"
+           aria-label="La boucle du vivant : les résultats vérifiés retournent au commun et nourrissent les racines">
+          <g transform="translate(800,352)"><use href="#leafGlyph" class="leaf-fall" style="--d:0s;--t:6s"    color="var(--gold)"/></g>
+          <g transform="translate(872,452)"><use href="#leafGlyph" class="leaf-fall" style="--d:-1.4s;--t:5.4s" color="var(--leaf)"/></g>
+          <g transform="translate(895,566)"><use href="#leafGlyph" class="leaf-fall" style="--d:-3.1s;--t:6.6s" color="var(--gold)"/></g>
+          <g transform="translate(864,676)"><use href="#leafGlyph" class="leaf-fall" style="--d:-2.2s;--t:5.8s" color="var(--green2)"/></g>
+          <g transform="translate(786,772)"><use href="#leafGlyph" class="leaf-fall" style="--d:-4.3s;--t:6.2s" color="var(--gold)"/></g>
+          <g transform="translate(690,846)"><use href="#leafGlyph" class="leaf-fall" style="--d:-5.1s;--t:5.6s" color="var(--leaf)"/></g>
+        </g>
 
       </svg>
     </div>
@@ -507,7 +540,7 @@ header.masthead {
 
 // Les cinq branches : étapes du parcours REGEN.
 const BRANCHES = {
-  "1": { n: 1, verb: "Rêver", fn: "la Vision", glyph: "💭",
+  "1": { n: 1, verb: "Rêver", fn: "la vision", glyph: "💭",
     def: "Imaginer ensemble un futur désirable et en faire un cap partagé.",
     outils: {
       items: [
@@ -518,7 +551,7 @@ const BRANCHES = {
       ],
       deva: "accompagne la conversation pour faire accoucher la vision du groupe, elle ne la rédige jamais." },
     coop: "Les animateurs d'ateliers d'imaginaire et de prise de conscience, La Fresque du Climat et 2tonnes, et le wiki Movilab qui documente les tiers-lieux et leurs récits. Ils cadrent l'intention collective, exactement l'étape Rêver." },
-  "2": { n: 2, verb: "Explorer", fn: "le Commun", glyph: "🧭",
+  "2": { n: 2, verb: "Explorer", fn: "le commun", glyph: "🧭",
     def: "Choisir des solutions régénératives déjà éprouvées, avec leurs indicateurs et leurs conditions de réussite, sans réinventer la roue.",
     outils: {
       items: [
@@ -536,7 +569,7 @@ const BRANCHES = {
       ],
       deva: "abaisse la barrière et place les blocs, elle ne choisit pas la solution." },
     coop: "La communauté OpenStreetMap France pour la donnée cartographique ouverte, et la communauté Luanti pour le moteur voxel libre. Des communs techniques, pas des fournisseurs, au plus près de la décentralisation." },
-  "4": { n: 4, verb: "Entreprendre", fn: "la Gestion", glyph: "🛠️",
+  "4": { n: 4, verb: "Entreprendre", fn: "les actions", glyph: "🛠️",
     def: "Passer du virtuel au réel, une action à la fois, guidé par un plan d'action découpé en petits pas atteignables.",
     outils: {
       items: [
@@ -618,6 +651,16 @@ function renderRoot(key) {
     <p class="hint">Les cinq piliers forment le sol commun sur lequel pousse chaque lieu.</p>`;
 }
 
+// Vue de la boucle du vivant (survol des feuilles qui tombent).
+function renderLoop() {
+  panelBody.innerHTML = `
+    <div class="pillar-img"><span>🍂</span></div>
+    <p class="eyebrow">La boucle du vivant</p>
+    <h2>Nourrir les racines</h2>
+    <p>Les résultats vérifiés retournent au commun et nourrissent les racines.</p>
+    <p class="hint">Comme les feuilles qui tombent enrichissent la terre, chaque preuve validée redescend alimenter les cinq piliers.</p>`;
+}
+
 /* =========================================================================
    INTERACTIONS
    ========================================================================= */
@@ -663,6 +706,18 @@ document.querySelectorAll(".root").forEach(el => {
     if (e.key === "Enter" || e.key === " ") { e.preventDefault(); enter(); }
   });
 });
+
+// --- Feuilles qui tombent (la boucle du vivant) --- survol / focus uniquement.
+const loopLeaves = document.querySelector(".loop-leaves");
+if (loopLeaves) {
+  loopLeaves.addEventListener("pointerenter", renderLoop);
+  loopLeaves.addEventListener("focus", renderLoop);
+  loopLeaves.addEventListener("pointerleave", restore);
+  loopLeaves.addEventListener("blur", restore);
+  loopLeaves.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); renderLoop(); }
+  });
+}
 
 /* =========================================================================
    BASCULE DE THÈME (clair / sombre via les variables)
