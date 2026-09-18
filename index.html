@@ -283,10 +283,6 @@ header.masthead {
 [data-theme="dark"] .sun { display: none; }
 [data-theme="dark"] .moon { display: block; }
 
-/* Boucle du vivant : flux discret le long de la flèche en pointillé. */
-.loop-path { animation: loop-flow 6s linear infinite; }
-@keyframes loop-flow { to { stroke-dashoffset: -60; } }
-
 /* Feuilles qui tombent : chaque feuille dérive vers le bas, tourne et s'efface,
    puis reparaît en haut. Le groupe entier est survolable/focusable. */
 .loop-leaves { cursor: pointer; }
@@ -311,7 +307,7 @@ header.masthead {
 /* Respect de la frugalité et de l'accessibilité : aucune animation si l'utilisateur
    a demandé à réduire le mouvement. */
 @media (prefers-reduced-motion: reduce) {
-  .loop-path, .branch, .leaf-fall { animation: none !important; transition: none !important; }
+  .branch, .leaf-fall { animation: none !important; transition: none !important; }
   .leaf-fall { opacity: 0.95; }
 }
 
@@ -371,11 +367,6 @@ header.masthead {
             <stop offset="55%" stop-color="#DCE9E2" stop-opacity="0.22"/>
             <stop offset="100%" stop-color="#DCE9E2" stop-opacity="0"/>
           </radialGradient>
-          <!-- Flèche de la boucle -->
-          <marker id="loopArrow" viewBox="0 0 10 10" refX="8" refY="5"
-                  markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path d="M0,0 L10,5 L0,10 z" fill="var(--gold)"/>
-          </marker>
           <!-- Feuille réutilisable : sa couleur suit currentColor. -->
           <g id="leafGlyph">
             <path d="M0,-11 C7,-6 7,6 0,11 C-7,6 -7,-6 0,-11 Z" fill="currentColor"/>
@@ -503,24 +494,20 @@ header.masthead {
           <text x="710" y="522" text-anchor="middle" font-family="var(--font-sans)" font-size="12" fill="var(--cream)">les preuves</text>
         </g>
 
-        <!-- ===== BOUCLE DU VIVANT : flèche en pointillé, feuillage -> racines ===== -->
-        <path class="loop-path" d="M775,320 C900,400 905,620 855,760 C820,858 720,880 620,872"
-              fill="none" stroke="var(--gold)" stroke-width="3"
-              stroke-dasharray="3 9" stroke-linecap="round" marker-end="url(#loopArrow)"/>
         <!-- ===== FEUILLES QUI TOMBENT : la boucle du vivant, survolables =====
-             Elles descendent le long de la boucle, du feuillage vers les racines.
+             Elles tombent sous la branche « Nourrir », du feuillage vers les racines.
              Au survol, leur sens s'affiche dans le panneau latéral. -->
         <g class="loop-leaves" tabindex="0" role="button"
            aria-label="La boucle du vivant : les résultats vérifiés retournent au commun et nourrissent les racines">
-          <!-- Zone de survol invisible mais généreuse, suivant la boucle. -->
-          <path d="M775,320 C900,400 905,620 855,760 C820,858 720,880 620,872"
-                fill="none" stroke="transparent" stroke-width="72" stroke-linecap="round" pointer-events="stroke"/>
-          <g transform="translate(800,352)"><use href="#leafGlyph" class="leaf-fall" style="--d:0s;--t:6s"    color="var(--gold)"/></g>
-          <g transform="translate(872,452)"><use href="#leafGlyph" class="leaf-fall" style="--d:-1.4s;--t:5.4s" color="var(--leaf)"/></g>
-          <g transform="translate(895,566)"><use href="#leafGlyph" class="leaf-fall" style="--d:-3.1s;--t:6.6s" color="var(--gold)"/></g>
-          <g transform="translate(864,676)"><use href="#leafGlyph" class="leaf-fall" style="--d:-2.2s;--t:5.8s" color="var(--green2)"/></g>
-          <g transform="translate(786,772)"><use href="#leafGlyph" class="leaf-fall" style="--d:-4.3s;--t:6.2s" color="var(--gold)"/></g>
-          <g transform="translate(690,846)"><use href="#leafGlyph" class="leaf-fall" style="--d:-5.1s;--t:5.6s" color="var(--leaf)"/></g>
+          <!-- Zone de survol invisible mais généreuse, sous la branche Nourrir. -->
+          <path d="M710,560 L710,842"
+                fill="none" stroke="transparent" stroke-width="100" stroke-linecap="round" pointer-events="stroke"/>
+          <g transform="translate(700,578)"><use href="#leafGlyph" class="leaf-fall" style="--d:0s;--t:6s"    color="var(--gold)"/></g>
+          <g transform="translate(732,636)"><use href="#leafGlyph" class="leaf-fall" style="--d:-1.4s;--t:5.4s" color="var(--leaf)"/></g>
+          <g transform="translate(686,692)"><use href="#leafGlyph" class="leaf-fall" style="--d:-3.1s;--t:6.6s" color="var(--gold)"/></g>
+          <g transform="translate(724,748)"><use href="#leafGlyph" class="leaf-fall" style="--d:-2.2s;--t:5.8s" color="var(--green2)"/></g>
+          <g transform="translate(696,804)"><use href="#leafGlyph" class="leaf-fall" style="--d:-4.3s;--t:6.2s" color="var(--gold)"/></g>
+          <g transform="translate(716,844)"><use href="#leafGlyph" class="leaf-fall" style="--d:-5.1s;--t:5.6s" color="var(--leaf)"/></g>
         </g>
 
       </svg>
