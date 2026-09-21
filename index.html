@@ -384,6 +384,134 @@ header.masthead {
   .panel { position: static; }
   .tree-wrap svg { max-width: 560px; margin: 0 auto; }
 }
+
+/* =========================================================================
+   VISION EVAD 2030 — bande pleine largeur sous l'arbre.
+   Tout est scopé sous .vision2030, avec ses propres jetons de couleur, pour
+   ne rien écraser des styles globaux et rester en fond sombre dans les deux
+   thèmes de la page.
+   ========================================================================= */
+.vision2030 {
+  --v2030-bg:     #1B3A2A;
+  --v2030-fg:     #F6F2E7;
+  --v2030-muted:  rgba(246,242,231,0.78);
+  --v2030-green:  #2E7D4F;
+  --v2030-gold:   #F2B705;
+  --v2030-blue:   #5AA9CE;
+  --v2030-violet: #AF93DC;
+  background: var(--v2030-bg);
+  color: var(--v2030-fg);
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 2rem);
+  font-family: var(--font-sans);
+}
+.vision2030 * { box-sizing: border-box; }
+.vision2030__inner {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+.vision2030__eyebrow {
+  margin: 0 0 1rem;
+  color: var(--v2030-gold);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.78rem;
+}
+.vision2030__title {
+  margin: 0 0 1.1rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(1.7rem, 4.4vw, 2.7rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--v2030-fg);
+}
+.vision2030__intro {
+  margin: 0 auto 1.8rem;
+  max-width: 56ch;
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  color: var(--v2030-muted);
+}
+.vision2030__link {
+  margin: 0 auto 2.2rem;
+  max-width: 60ch;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(242,183,5,0.45);
+  border-radius: 16px;
+  background: rgba(242,183,5,0.08);
+  color: var(--v2030-fg);
+  font-size: clamp(1rem, 1.5vw, 1.1rem);
+}
+.vision2030__lived { margin: 0 0 2rem; }
+.vision2030__lived-title {
+  margin: 0 0 0.9rem;
+  color: var(--v2030-gold);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+}
+.vision2030__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.7rem;
+  text-align: left;
+  max-width: 620px;
+  margin-inline: auto;
+}
+.vision2030__list li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background: rgba(246,242,231,0.05);
+  border: 1px solid rgba(246,242,231,0.10);
+  font-size: 0.98rem;
+}
+.vision2030__dot {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--dot, var(--v2030-green));
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--dot, var(--v2030-green)) 22%, transparent);
+}
+.vision2030__quote {
+  margin: 0 0 1.8rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+  color: var(--v2030-fg);
+}
+.vision2030__cta {
+  display: inline-block;
+  padding: 0.85rem 1.7rem;
+  border-radius: 100px;
+  background: var(--v2030-gold);
+  color: #1B3A2A;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.vision2030__cta:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(242,183,5,0.28); }
+.vision2030__cta:focus-visible { outline: 3px solid var(--v2030-fg); outline-offset: 3px; }
+.vision2030__credit {
+  margin: 1.6rem 0 0;
+  font-size: 0.82rem;
+  color: rgba(246,242,231,0.55);
+}
+@media (min-width: 680px) {
+  .vision2030__list { grid-template-columns: 1fr 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vision2030__cta { transition: none; }
+}
 </style>
 </head>
 
@@ -662,6 +790,37 @@ header.masthead {
 
   </div>
 </div>
+
+<!-- ================================================================
+     VISION EVAD 2030 : bande pleine largeur sous l'arbre.
+     Le cap que le parcours REGEN sert à atteindre. Toujours en fond
+     sombre, indépendamment du thème clair/sombre de la page.
+     ================================================================ -->
+<section class="vision2030" id="vision-2030" aria-labelledby="v2030-title">
+  <div class="vision2030__inner">
+    <p class="vision2030__eyebrow">Vision EVAD 2030</p>
+    <h2 class="vision2030__title" id="v2030-title">En 2030, la transition a réussi, et elle est heureuse.</h2>
+    <p class="vision2030__intro">Des lieux vivants où humains, nature et technologie s'accordent, bâtis par des gestes concrets qui régénèrent, et que chacun construit avec plaisir.</p>
+
+    <p class="vision2030__link">Pour aller vers la vision EVAD 2030, nous mettons en place le parcours REGEN. Du rêve à la preuve, et la preuve rouvre le rêve.</p>
+
+    <div class="vision2030__lived">
+      <p class="vision2030__lived-title">Ce qu'on y vit</p>
+      <ul class="vision2030__list">
+        <li><span class="vision2030__dot" style="--dot: var(--v2030-green)"></span>La nature reprend ses droits</li>
+        <li><span class="vision2030__dot" style="--dot: var(--v2030-blue)"></span>Des technologies frugales, au service du vivant</li>
+        <li><span class="vision2030__dot" style="--dot: var(--v2030-gold)"></span>Rien ne se perd, tout nourrit</li>
+        <li><span class="vision2030__dot" style="--dot: var(--v2030-violet)"></span>On rêve, on décide et on fait ensemble</li>
+      </ul>
+    </div>
+
+    <blockquote class="vision2030__quote">On y entre, et on a envie d'y rester.</blockquote>
+
+    <a class="vision2030__cta" href="#">Faire naître un lieu</a>
+
+    <p class="vision2030__credit">Dans l'esprit des 2030 Glorieuses de Julien Vidal.</p>
+  </div>
+</section>
 
 <script>
 /* =========================================================================
