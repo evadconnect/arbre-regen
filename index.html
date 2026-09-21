@@ -506,11 +506,23 @@ header.masthead {
   font-size: 0.82rem;
   color: rgba(246,242,231,0.55);
 }
+.vision2030__frieze {
+  margin: clamp(2rem, 5vw, 3.5rem) auto 0;
+  max-width: 1200px;
+}
+.vision2030__frieze svg { display: block; width: 100%; height: auto; }
+.fz-turbine {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fz-spin 16s linear infinite;
+}
+@keyframes fz-spin { to { transform: rotate(360deg); } }
 @media (min-width: 680px) {
   .vision2030__list { grid-template-columns: 1fr 1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
   .vision2030__cta { transition: none; }
+  .fz-turbine { animation: none; }
 }
 </style>
 </head>
@@ -819,6 +831,113 @@ header.masthead {
     <a class="vision2030__cta" href="#">Faire naître un lieu</a>
 
     <p class="vision2030__credit">Dans l'esprit des 2030 Glorieuses de Julien Vidal.</p>
+  </div>
+
+  <!-- Frise solarpunk : un lieu régénératif vu de loin. Décorative (aria-hidden). -->
+  <div class="vision2030__frieze" aria-hidden="true">
+    <svg viewBox="0 0 1200 240" preserveAspectRatio="xMidYMax meet" role="presentation">
+      <defs>
+        <radialGradient id="fzSun" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"  stop-color="#F2B705" stop-opacity="0.85"/>
+          <stop offset="45%" stop-color="#F2B705" stop-opacity="0.28"/>
+          <stop offset="100%" stop-color="#F2B705" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- soleil bas -->
+      <circle cx="330" cy="168" r="132" fill="url(#fzSun)"/>
+      <circle cx="330" cy="172" r="40" fill="#F2B705" opacity="0.85"/>
+
+      <!-- collines -->
+      <path d="M0,180 Q220,150 460,170 T900,160 Q1050,152 1200,170 L1200,240 L0,240 Z" fill="#26543C"/>
+      <path d="M0,202 Q260,178 560,198 T1200,194 L1200,240 L0,240 Z" fill="#2E7D4F"/>
+
+      <!-- éolienne douce -->
+      <g>
+        <rect x="150" y="122" width="4" height="66" rx="2" fill="#E7F1EA" opacity="0.85"/>
+        <g transform="translate(152,122)">
+          <g class="fz-turbine">
+            <path d="M0,0 L3,-40 L-3,-38 Z" fill="#E7F1EA"/>
+            <path d="M0,0 L36,20 L34,24 Z" fill="#E7F1EA"/>
+            <path d="M0,0 L-34,24 L-36,20 Z" fill="#E7F1EA"/>
+            <circle r="3.5" fill="#F6F2E7"/>
+          </g>
+        </g>
+      </g>
+
+      <!-- arbres d'arrière-plan -->
+      <g>
+        <rect x="417" y="150" width="6" height="34" fill="#7A5230"/>
+        <circle cx="420" cy="146" r="20" fill="#2E7D4F"/><circle cx="408" cy="152" r="13" fill="#3E9A63"/><circle cx="432" cy="152" r="13" fill="#6CBF7A"/>
+        <rect x="905" y="150" width="6" height="34" fill="#7A5230"/>
+        <circle cx="908" cy="146" r="18" fill="#2E7D4F"/><circle cx="920" cy="152" r="12" fill="#6CBF7A"/><circle cx="897" cy="153" r="11" fill="#3E9A63"/>
+        <rect x="1010" y="156" width="5" height="28" fill="#7A5230"/>
+        <circle cx="1012" cy="152" r="15" fill="#3E9A63"/><circle cx="1023" cy="157" r="10" fill="#6CBF7A"/>
+      </g>
+
+      <!-- maison à toit végétalisé -->
+      <g>
+        <rect x="452" y="140" width="80" height="44" rx="3" fill="#CBD2BC"/>
+        <path d="M446,140 L458,124 L526,124 L538,140 Z" fill="#3E9A63"/>
+        <circle cx="470" cy="127" r="4" fill="#6CBF7A"/><circle cx="492" cy="125" r="4.5" fill="#6CBF7A"/><circle cx="514" cy="127" r="4" fill="#6CBF7A"/>
+        <rect x="462" y="150" width="14" height="12" fill="#F2B705"/>
+        <rect x="508" y="150" width="14" height="12" fill="#F2B705"/>
+        <rect x="485" y="162" width="15" height="22" rx="2" fill="#7A5230"/>
+      </g>
+
+      <!-- maison solaire, plus haute -->
+      <g>
+        <rect x="556" y="120" width="72" height="64" rx="3" fill="#B9C3A6"/>
+        <rect x="550" y="112" width="84" height="10" rx="2" fill="#2E7D4F"/>
+        <polygon points="560,112 628,112 638,92 570,92" fill="#1C3D4F"/>
+        <line x1="576" y1="112" x2="586" y2="92" stroke="#5AA9CE" stroke-width="1.4"/>
+        <line x1="596" y1="112" x2="606" y2="92" stroke="#5AA9CE" stroke-width="1.4"/>
+        <line x1="616" y1="112" x2="626" y2="92" stroke="#5AA9CE" stroke-width="1.4"/>
+        <line x1="565" y1="102" x2="633" y2="102" stroke="#5AA9CE" stroke-width="1.2"/>
+        <rect x="566" y="132" width="12" height="12" fill="#F2B705"/>
+        <rect x="588" y="132" width="12" height="12" fill="#F2B705"/>
+        <rect x="610" y="132" width="12" height="12" fill="#F2B705"/>
+        <rect x="566" y="152" width="12" height="12" fill="#F2B705" opacity="0.7"/>
+        <rect x="588" y="160" width="18" height="24" rx="2" fill="#7A5230"/>
+      </g>
+
+      <!-- serre / greenhouse -->
+      <g>
+        <rect x="648" y="150" width="60" height="34" rx="2" fill="#DDEBE2" opacity="0.45"/>
+        <polygon points="644,150 712,150 678,132" fill="#DDEBE2" opacity="0.40"/>
+        <path d="M678,132 L678,184 M652,150 L652,184 M704,150 L704,184 M648,166 L708,166" stroke="#6CBF7A" stroke-width="1.2" opacity="0.7" fill="none"/>
+        <circle cx="662" cy="176" r="3.5" fill="#6CBF7A"/><circle cx="690" cy="176" r="3.5" fill="#3E9A63"/><circle cx="676" cy="178" r="3" fill="#6CBF7A"/>
+      </g>
+
+      <!-- tour à terrasse plantée -->
+      <g>
+        <rect x="742" y="122" width="46" height="62" rx="3" fill="#CBD2BC"/>
+        <rect x="736" y="114" width="58" height="10" rx="2" fill="#3E9A63"/>
+        <circle cx="752" cy="112" r="6" fill="#6CBF7A"/><circle cx="770" cy="111" r="7" fill="#2E7D4F"/><circle cx="784" cy="113" r="5" fill="#6CBF7A"/>
+        <rect x="750" y="132" width="12" height="12" fill="#F2B705"/>
+        <rect x="770" y="132" width="12" height="12" fill="#F2B705"/>
+        <rect x="750" y="152" width="12" height="12" fill="#F2B705" opacity="0.7"/>
+        <rect x="770" y="152" width="12" height="12" fill="#F2B705"/>
+      </g>
+
+      <!-- étang au premier plan -->
+      <ellipse cx="600" cy="212" rx="180" ry="11" fill="#4E96A8" opacity="0.75"/>
+      <line x1="520" y1="210" x2="560" y2="210" stroke="#DDEBE2" stroke-width="1.4" opacity="0.5"/>
+      <line x1="640" y1="214" x2="690" y2="214" stroke="#DDEBE2" stroke-width="1.4" opacity="0.4"/>
+
+      <!-- silhouettes qui s'activent -->
+      <g fill="#F6F2E7">
+        <g transform="translate(560,188)"><circle cy="-9" r="3.2"/><path d="M-3.4,-5 Q0,-7 3.4,-5 L2.6,6 L-2.6,6 Z"/></g>
+        <g transform="translate(596,190)"><circle cy="-9" r="3.2"/><path d="M-3.4,-5 Q0,-7 3.4,-5 L2.6,6 L-2.6,6 Z"/></g>
+        <g transform="translate(876,188)"><circle cy="-9" r="3.2"/><path d="M-3.4,-5 Q0,-7 3.4,-5 L2.6,6 L-2.6,6 Z"/></g>
+      </g>
+
+      <!-- oiseaux -->
+      <g fill="none" stroke="#F6F2E7" stroke-width="2" stroke-linecap="round" opacity="0.85">
+        <path d="M770,66 q7,-8 14,0 q7,-8 14,0"/>
+        <path d="M828,82 q6,-6 12,0 q6,-6 12,0"/>
+      </g>
+    </svg>
   </div>
 </section>
 
